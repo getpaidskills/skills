@@ -11,5 +11,6 @@
   "homepage": "https://getpaidskills.com",
   "repository": "https://github.com/getpaidskills/skills",
   "license": "MIT",
+  "icon": "./assets/icon.png",
   "keywords": ["agent-skills", "launch", "seo", "open-graph", "legal-pages", "agents-md"]
 }
