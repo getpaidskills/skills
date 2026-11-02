@@ -1,0 +1,36 @@
+{
+  "company_name": "Acme Studio",
+  "product_name": "Acme",
+  "website_url": "https://example.com",
+  "contact_email": "support@example.com",
+  "legal_entity_type": "[[TODO: individual / sole proprietor / company name and registration no.]]",
+  "address": "[[TODO: postal address for legal notices]]",
+  "governing_law": "[[TODO: e.g. the laws of ... ]]",
+  "effective_date": "",
+  "merchant_of_record": "creem",
+  "sells_subscriptions": true,
+  "sells_one_time": true,
+  "product_kind": "downloadable digital files (software instructions and code templates)",
+  "refund_mode": "window",
+  "refund_window_days": 14,
+  "refund_conditions": "if the product is materially not as described or you could not download it",
+  "data_collected": [
+    "Account data: email address and, if you sign in with GitHub or Google, your name and avatar",
+    "Purchase data: product, price, country and order ID (card details are handled by the payment provider and never reach us)",
+    "Usage data: IP address, browser type, pages visited and download events, kept in server logs"
+  ],
+  "processors": [
+    {"name": "Amazon Web Services", "purpose": "hosting and storage", "location": "[[TODO: region]]"},
+    {"name": "Creem", "purpose": "payments, tax and invoicing (Merchant of Record)", "location": "European Union"},
+    {"name": "Resend", "purpose": "transactional email", "location": "United States"}
+  ],
+  "uses_cookies": true,
+  "analytics_cookies": false,
+  "analytics_provider": "",
+  "serves_eu": true,
+  "serves_california": true,
+  "serves_china": false,
+  "min_age": 16,
+  "retention_days_logs": 90,
+  "license_summary": "a personal, non-transferable licence to use the purchased files in your own projects; you may not resell or redistribute the files themselves"
+}

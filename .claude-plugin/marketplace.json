@@ -1,0 +1,15 @@
+{
+  "name": "getpaidskills",
+  "description": "Free Agent Skills from GetPaid Skills",
+  "owner": {
+    "name": "GetPaid Skills",
+    "email": "support@getpaidskills.com"
+  },
+  "plugins": [
+    {
+      "name": "launch-kit",
+      "source": "./",
+      "description": "Pre-launch audit, legal pages, OG share images and an AGENTS.md starter (MIT)."
+    }
+  ]
+}
