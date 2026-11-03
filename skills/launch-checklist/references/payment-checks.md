@@ -17,6 +17,12 @@ Creem, Paddle, Stripe, Lemon Squeezy and Polar webhooks.
 
 It is a heuristic grep, not a proof: a PASS means the pattern exists, not that it's correct.
 
+Test files are skipped for the handler, raw-body, idempotency, refund and success-page checks
+(file names like `*.test.*`, `*.spec.*`, `*.e2e.*`, `test_*.py`, `*_test.go`, or any folder named
+`test`, `tests`, `__tests__`, `spec`, `e2e`, `cypress`, `playwright`, `fixtures`, `__mocks__`, `testdata`).
+Before 0.2.1 a `route.test.ts` next to the real handler was reported as "no HMAC / verify call found".
+The secrets check still covers test files: a live key in a fixture is as leaked as one in app code.
+
 ## Probes (`--url`)
 
 | Probe | Expect |

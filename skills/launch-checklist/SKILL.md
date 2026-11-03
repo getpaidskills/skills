@@ -3,7 +3,7 @@ name: launch-checklist
 description: Pre-launch audit for a website or SaaS - checks SEO tags (title, description, canonical, lang, Open Graph), robots.txt, sitemap.xml, favicon and apple-touch-icon, real 404 status, HTTPS redirect, legal pages (privacy, terms, refund), image alt text, page weight and response time, plus a payment self-check (webhook signature, raw body, idempotency, refunds, secrets, success-page grants), then lists the problems and fixes them in the codebase. Ships a no-dependency crawler script (audit_site.py) that produces a pass/warn/fail report. Use when the user says they are about to launch, ship, go live, submit to Product Hunt or AI directories, or asks "is my site ready", "SEO check", "why is my site not indexed", or wants a launch checklist, or asks whether their payment or webhook setup is safe.
 license: MIT
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
   author: GetPaid Skills
 ---
 
@@ -71,6 +71,10 @@ event id, success page grants access, payment secrets in `NEXT_PUBLIC_*` or comm
 redirects or sits behind a bot challenge. Fix them, re-run, then do the manual card tests in
 `references/payment-checks.md` (success card, decline card, refund, dashboard resend, cancel).
 Never pass a live webhook secret. `scripts/test_payment_check.py` is the script's own test.
+Test, spec and fixture files (`*.test.ts`, `*.spec.tsx`, `test_*.py`, anything under `tests/`, `e2e/`,
+`__tests__/`, `fixtures/`) are not judged as handlers or success pages, because they post unsigned
+requests and insert rows on purpose; they are still scanned for committed live keys. The report says
+how many were skipped (`INFO test files`).
 
 ## Report format
 

@@ -51,6 +51,17 @@ def add(level: str, check: str, detail: str, fix: str = "") -> None:
 # ---------------------------------------------------------------- static scan
 SKIP_DIRS = {"node_modules", ".next", ".git", "dist", "build", "out", ".vercel", "coverage", "__pycache__", ".turbo"}
 CODE_EXT = {".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".rb", ".go", ".php"}
+# Test, spec, fixture and mock files exercise the webhook (they send unsigned or forged requests on
+# purpose, insert rows to set up state), so judging them as handlers or success pages gives false FAILs.
+# They are still scanned for committed live secrets.
+TEST_DIRS = {"test", "tests", "__tests__", "__test__", "spec", "specs", "e2e", "cypress", "playwright",
+             "fixtures", "__fixtures__", "__mocks__", "mocks", "testdata"}
+TEST_FILE_RE = re.compile(r"(\.(test|spec|e2e|stories)\.[cm]?[jt]sx?$)|(^test_.*\.py$)|(_test\.(py|go|rb)$)|(_spec\.rb$)|(Test\.php$)")
+
+
+def is_test_file(rel_path: str) -> bool:
+    parts = rel_path.replace(os.sep, "/").split("/")
+    return bool(TEST_FILE_RE.search(parts[-1])) or any(p.lower() in TEST_DIRS for p in parts[:-1])
 
 
 def walk(root: str):
@@ -72,6 +83,8 @@ def scan_source(root: str, provider: str) -> None:
     files = list(walk(root))
     code = {p: read(p) for p in files if os.path.splitext(p)[1] in CODE_EXT and os.path.getsize(p) < 2_000_000}
     rel = lambda p: os.path.relpath(p, root)  # noqa: E731
+    tests = {p for p in code if is_test_file(rel(p))}
+    app_code = {p: t for p, t in code.items() if p not in tests}
 
     # 1. committed secrets
     live = []
@@ -90,14 +103,16 @@ def scan_source(root: str, provider: str) -> None:
         add("PASS", "no secrets in the repo", "no live-looking keys or tracked .env files")
 
     # 2. payment secrets exposed to the browser
-    pub = sorted({m.group(0) for t in code.values() for m in re.finditer(r"NEXT_PUBLIC_[A-Z0-9_]*(SECRET|API_KEY|WEBHOOK)[A-Z0-9_]*", t)})
+    pub = sorted({m.group(0) for t in app_code.values() for m in re.finditer(r"NEXT_PUBLIC_[A-Z0-9_]*(SECRET|API_KEY|WEBHOOK)[A-Z0-9_]*", t)})
     if pub:
         add("FAIL", "payment secrets stay on the server", ", ".join(pub), "Rename without NEXT_PUBLIC_ and read only in server code.")
     else:
         add("PASS", "payment secrets stay on the server", "no NEXT_PUBLIC_*SECRET/API_KEY/WEBHOOK")
 
     # 3. webhook handler
-    hooks = [p for p, t in code.items() if re.search(r"webhook", p, re.I) and re.search(r"POST|def |func |app\.post|router\.post", t)]
+    if tests:
+        add("INFO", "test files", f"{len(tests)} test/spec/fixture files skipped for the handler and success-page checks (still scanned for secrets)")
+    hooks = [p for p, t in app_code.items() if re.search(r"webhook", rel(p), re.I) and re.search(r"POST|def |func |app\.post|router\.post", t)]
     if not hooks:
         add("WARN", "webhook handler found", "no file with 'webhook' in its path that handles POST", "Point --src at the app root.")
         return
@@ -115,17 +130,17 @@ def scan_source(root: str, provider: str) -> None:
         add("FAIL" if parsed_first else "PASS", f"{r}: uses the raw body", "parses JSON before verifying" if parsed_first else "reads text/raw body",
             "Read req.text() (or the raw buffer), verify, then JSON.parse." if parsed_first else "")
         idem = re.search(r"event[_ ]?id|eventId|dedupe|idempot|onConflictDoNothing|ON CONFLICT|INSERT OR IGNORE|unique", t, re.I) or \
-            any(re.search(r"dedupe|idempot|onConflictDoNothing|INSERT OR IGNORE", code[q], re.I) for q in code if q != p and re.search(r"entitle|grant|billing|creem|paddle|stripe", q, re.I))
+            any(re.search(r"dedupe|idempot|onConflictDoNothing|INSERT OR IGNORE", app_code[q], re.I) for q in app_code if q != p and re.search(r"entitle|grant|billing|creem|paddle|stripe", rel(q), re.I))
         add("PASS" if idem else "FAIL", f"{r}: idempotent", "event id / unique key handling found" if idem else "no event-id dedupe found",
             "" if idem else "Store each event id with a UNIQUE constraint and skip repeats; providers retry and resend.")
-        refunds = re.search(r"refund|chargeback|dispute|revoke", t, re.I) or any(re.search(r"refund|dispute|chargeback", code[q], re.I) for q in code if re.search(r"entitle|grant|core", q, re.I))
+        refunds = re.search(r"refund|chargeback|dispute|revoke", t, re.I) or any(re.search(r"refund|dispute|chargeback", app_code[q], re.I) for q in app_code if re.search(r"entitle|grant|core", rel(q), re.I))
         add("PASS" if refunds else "WARN", f"{r}: refunds remove access", "refund/dispute handling found" if refunds else "no refund or dispute handling found",
             "" if refunds else "Revoke access on refund.created / dispute (or the provider's equivalent).")
 
     # 4. access granted from the success page
     bad = []
-    for p, t in code.items():
-        if re.search(r"success|thank", p, re.I) and re.search(r"insert\(|\.insert|grant\(|upsert|UPDATE\s|INSERT\s", t):
+    for p, t in app_code.items():
+        if re.search(r"success|thank", rel(p), re.I) and re.search(r"insert\(|\.insert|grant\(|upsert|UPDATE\s|INSERT\s", t):
             bad.append(rel(p))
     if bad:
         add("FAIL", "success page does not grant access", ", ".join(bad), "Grant only from the verified webhook; the success page just says 'processing'.")

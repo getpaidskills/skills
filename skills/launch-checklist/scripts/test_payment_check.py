@@ -49,5 +49,27 @@ for name in ["no secrets in the repo", "payment secrets stay on the server", "ve
     check(levels.get(name) == "FAIL", f"bad app: {name} → FAIL")
 code, out = run(GOOD, "creem")
 check(code == 0 and out["fail"] == 0, f"good app passes ({[r['check'] for r in out['results'] if r['level'] != 'PASS']})")
+
+# Test files next to a good handler must not turn into false FAILs: they post unsigned/forged
+# bodies on purpose and insert rows to set up state.
+WITH_TESTS = dict(GOOD)
+WITH_TESTS.update({
+    "app/api/webhooks/creem/route.test.ts": "import { POST } from './route';\nit('rejects', async () => { const r = await POST(new Request('http://x', { method: 'POST', body: JSON.stringify({}) })); expect(r.status).toBe(401) })",
+    "app/checkout/success/page.spec.tsx": "beforeEach(() => db.insert(users).values({ id: 'u1' }))",
+    "tests/e2e/webhook-flow.ts": "export async function POST() { await fetch('/api/webhooks/creem', { method: 'POST', body: '{}' }) }",
+    "test_webhook.py": "def test_post(client):\n    client.post('/api/webhooks/creem', json={})",
+})
+code, out = run(WITH_TESTS, "creem")
+bad = [f"{r['check']} ({r['level']})" for r in out["results"] if r["level"] == "FAIL"]
+check(code == 0 and not bad, f"good app + test files passes (FAILs: {bad})")
+check(any(r["check"] == "test files" and r["level"] == "INFO" for r in out["results"]), "skipped test files are reported as INFO")
+check(not any("route.test.ts" in r["check"] for r in out["results"]), "route.test.ts is not judged as a webhook handler")
+
+# ...but a live key committed in a test file is still a FAIL.
+LEAK = dict(GOOD)
+LEAK["app/api/webhooks/creem/route.test.ts"] = 'const key = "sk_live_' + "b" * 24 + '";'
+code, out = run(LEAK, "creem")
+levels = {r["check"]: r["level"] for r in out["results"]}
+check(code == 1 and levels.get("no secrets in the repo") == "FAIL", "live key inside a test file still FAILs")
 print(f"\n{'all passed' if not failed else f'{failed} failed'}")
 sys.exit(1 if failed else 0)
