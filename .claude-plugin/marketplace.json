@@ -9,7 +9,7 @@
     {
       "name": "launch-kit",
       "source": "./",
-      "description": "Pre-launch audit, legal pages, OG share images and an AGENTS.md starter (MIT)."
+      "description": "Pre-launch audit, legal pages, OG share images, an AGENTS.md starter and a launch-directory kit (MIT)."
     }
   ]
 }

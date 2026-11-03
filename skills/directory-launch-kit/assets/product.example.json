@@ -1,0 +1,23 @@
+{
+  "name": "Acme Invoices",
+  "url": "https://acme-invoices.example.com",
+  "tagline": "Invoices that send and chase themselves",
+  "description": "Acme turns a tracked hour into a finished invoice, sends it, and follows up until it is paid. Built for freelancers who would rather do the work than the admin. Free for 3 clients, $9/month after.",
+  "show_hn_title": "Show HN: Acme Invoices – invoices that send and chase themselves",
+  "maker_comment": "Hi, I'm the maker. I built this after losing a week every quarter to chasing invoices. It does three things: ... What I'd love feedback on: ...",
+  "category": "Productivity",
+  "pricing": "Free for 3 clients, $9/month",
+  "tags": ["invoicing", "freelancers"],
+  "competitors": ["FreshBooks", "Invoice Ninja"],
+  "ai": false,
+  "open_source": false,
+  "agent_skills": false,
+  "developer_tool": false,
+  "open_to_offers": false,
+  "requires_signup_to_try": false,
+  "images": {
+    "logo": "logo.png",
+    "screenshots": ["shot-1.png", "shot-2.png"],
+    "background": "#ffffff"
+  }
+}

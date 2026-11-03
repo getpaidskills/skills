@@ -1,8 +1,8 @@
 {
   "name": "launch-kit",
   "displayName": "GetPaid Skills: Launch Kit (free)",
-  "version": "1.0.0",
-  "description": "Free MIT Agent Skills for shipping a site: pre-launch audit (SEO, 404s, legal links, webhook safety), legal pages, OG share images and an AGENTS.md starter.",
+  "version": "1.1.0",
+  "description": "Free MIT Agent Skills for shipping a site: pre-launch audit (SEO, 404s, legal links, webhook safety), legal pages, OG share images, an AGENTS.md starter and launch-directory submissions.",
   "author": {
     "name": "GetPaid Skills",
     "email": "support@getpaidskills.com",
@@ -12,5 +12,14 @@
   "repository": "https://github.com/getpaidskills/skills",
   "license": "MIT",
   "icon": "./assets/icon.png",
-  "keywords": ["agent-skills", "launch", "seo", "open-graph", "legal-pages", "agents-md"]
+  "keywords": [
+    "agent-skills",
+    "launch",
+    "seo",
+    "open-graph",
+    "legal-pages",
+    "agents-md",
+    "product-hunt",
+    "launch-directories"
+  ]
 }

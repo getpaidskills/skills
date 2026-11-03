@@ -1,6 +1,6 @@
 # GetPaid Skills — free launch skills for coding agents
 
-Four free, MIT-licensed [Agent Skills](https://agentskills.io) (`SKILL.md` format) that help your
+Five free, MIT-licensed [Agent Skills](https://agentskills.io) (`SKILL.md` format) that help your
 coding agent get a site ready to launch. They work in **Claude Code**, **Codex** and **Cursor**
 (and other agents that read `SKILL.md` folders). No signup, no API key.
 
@@ -12,6 +12,7 @@ coding agent get a site ready to launch. They work in **Claude Code**, **Codex**
 | [`legal-pages`](skills/legal-pages) | Drafts a Privacy Policy, Terms of Service and Refund Policy from a short questionnaire, adapted to your payment provider (Creem, Paddle, Lemon Squeezy, Stripe) and your users' regions, and renders them as Markdown, HTML or Next.js pages. A starting template, **not legal advice**. |
 | [`og-image-kit`](skills/og-image-kit) | Generates 1200×630 share images for every page (Next.js `opengraph-image.tsx`, Astro, or a Pillow script for static sites), wires up `og:*` / `twitter:*` tags, and verifies them with `check_og.py`. |
 | [`agents-md-starter`](skills/agents-md-starter) | Scans a repo for its languages, package manager and real build/test/lint commands, then writes an `AGENTS.md` plus a `CLAUDE.md` that imports it, so Claude Code, Codex and Cursor follow one set of project rules. |
+| [`directory-launch-kit`](skills/directory-launch-kit) | Launch copy, images and a tracker for 26 directories (Product Hunt, Show HN, BetaList, There's An AI For That, Uneed, SaaSHub, Peerlist, V2EX and more). `make_kit.py` writes per-directory copy with character counts against each site's limits (it stops instead of truncating) and resizes your real screenshots to each required size; `check_directories.py` re-checks submit pages and observed prices before you pay; `check_listing.py` confirms live listings link back and whether the link is nofollow. Never submits, pays or upvotes for you. |
 
 Scripts need Python 3.9+ and only the standard library, except `og-image-kit/scripts/generate_og.py`,
 which needs Pillow (`pip install pillow`).
@@ -58,6 +59,7 @@ Ask your agent in plain words:
 - "Write a privacy policy, terms and refund policy for this app."
 - "Add OG share images to every page and check the link previews."
 - "Set up AGENTS.md for this repo."
+- "Prepare launch directory submissions for my product and tell me where to submit first."
 
 Or run the scripts yourself:
 

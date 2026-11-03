@@ -1,0 +1,184 @@
+{
+  "checked": "2026-11-03",
+  "note": "Prices, queues and rules change often. Every 'observed' value below was read from the directory's own page on the 'checked' date. Run scripts/check_directories.py before quoting any price to the user, and say the date you read it.",
+  "directories": [
+    {
+      "id": "product-hunt", "name": "Product Hunt", "kind": "launch", "audience": "global tech",
+      "site": "https://www.producthunt.com", "submit_url": "https://www.producthunt.com/posts/new",
+      "cost": "free to post", "cost_source": "help.producthunt.com 'How to post a product' (sign in, click Submit)",
+      "fields": {"name": 40, "tagline": 60, "description": 500},
+      "assets": ["gallery 1270x760 (at least 2)", "thumbnail 240x240 square, GIF allowed, under 3 MB"],
+      "rules": ["Post your own product so you control the launch (Product Hunt help center).", "Save as draft if not ready, schedule the launch day.", "Do not ask for upvotes; ask people to check it out and comment."],
+      "backlink_required": false, "automatable": false,
+      "verify": "The site blocks headless browsers; confirm field limits in the submit form."
+    },
+    {
+      "id": "show-hn", "name": "Hacker News (Show HN)", "kind": "community", "audience": "developers",
+      "site": "https://news.ycombinator.com", "submit_url": "https://news.ycombinator.com/submit",
+      "rules_url": "https://news.ycombinator.com/showhn.html",
+      "cost": "free", "cost_source": "news.ycombinator.com/showhn.html",
+      "fields": {"title": 80},
+      "assets": [],
+      "rules": ["Title starts with 'Show HN:'.", "Must be something people can try now, ideally without signup; no landing pages, sign-up pages or fundraisers.", "Must be your own work and you must be around to discuss it.", "Minor version bumps are not Show HNs.", "Never ask friends to upvote or comment."],
+      "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "betalist", "name": "BetaList", "kind": "launch", "audience": "early adopters",
+      "site": "https://betalist.com", "submit_url": "https://betalist.com/submit", "agent_url": "https://betalist.com/agent",
+      "cost": "paid plans; the founder picks a plan and pays after reviewing the draft", "cost_source": "betalist.com/agent",
+      "fields": {"pitch": 80, "description": 500, "website_url": 255},
+      "assets": ["icon (required to pay)", "1-5 screenshots, each under 3 MB, 10-5000 px per side, png/jpeg/gif/webp/avif"],
+      "rules": ["website_url must be the product's own custom domain (no app-store, Product Hunt, Notion or free-subdomain page).", "An agent can draft via the API but never pays or publishes; it hands the founder a claim link."],
+      "backlink_required": false, "automatable": "draft only (official agent API); the founder claims, edits and pays",
+      "verify": "Field limits for pitch/description: read betalist.com/agent before drafting."
+    },
+    {
+      "id": "taaft", "name": "There's An AI For That", "kind": "ai-directory", "audience": "AI tool seekers",
+      "site": "https://theresanaiforthat.com", "submit_url": "https://theresanaiforthat.com/launch/",
+      "cost": "observed $49 one-time review fee for the basic launch; higher tiers listed", "cost_source": "theresanaiforthat.com/launch/",
+      "assets": ["logo", "screenshot"], "rules": ["AI tools only."], "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "saashub", "name": "SaaSHub", "kind": "saas-directory", "audience": "software buyers comparing alternatives",
+      "site": "https://www.saashub.com", "submit_url": "https://www.saashub.com/services/submit",
+      "cost": "free, with an approval queue", "cost_source": "saashub.com/services/submit",
+      "rules": ["List your competitors or the submission goes to the bottom of the queue.", "Products on free subdomains (e.g. *.vercel.app) are not accepted.", "The page asks AI agents to have the human submit it themselves: do not automate this one."],
+      "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "uneed", "name": "Uneed", "kind": "launch", "audience": "makers",
+      "site": "https://www.uneed.best", "submit_url": "https://www.uneed.best/submit-a-tool", "pricing_url": "https://www.uneed.best/pricing",
+      "cost": "observed: free launch (date assigned at the back of the line); $14.99 for a slot in about 14 days; $39.99 to skip the line and pick the date", "cost_source": "uneed.best/pricing",
+      "rules": ["Free launches need an upvote score of 10 to stay published and 20 for the do-follow backlink (per the pricing page)."],
+      "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "fazier", "name": "Fazier", "kind": "launch", "audience": "makers",
+      "site": "https://fazier.com", "submit_url": "https://fazier.com/submit",
+      "cost": "observed: free (reviewed and listed within 30 days, needs a backlink to Fazier on your homepage or footer); paid one-time tiers shown at $29, $49 and $99 (struck-through $39 / $69 / $139)", "cost_source": "fazier.com/submit",
+      "backlink_required": "free tier only", "automatable": false
+    },
+    {
+      "id": "dang-ai", "name": "Dang.ai", "kind": "ai-directory", "audience": "AI tool seekers",
+      "site": "https://dang.ai", "submit_url": "https://dang.ai/submit",
+      "cost": "observed: free with a crawlable backlink to dang.ai, 1 category, up to 4 weeks review; $49 for review in about 4 days without backlink; Pro $30 setup then $19/mo", "cost_source": "dang.ai/submit",
+      "rules": ["AI tools only."], "backlink_required": "free tier only", "automatable": false
+    },
+    {
+      "id": "topai-tools", "name": "TopAI.tools", "kind": "ai-directory", "audience": "AI tool seekers",
+      "site": "https://topai.tools", "submit_url": "https://topai.tools/submit",
+      "cost": "observed: $47 one-time, live within 48 h; $229 featured for 7 days; automatic refund if not accepted", "cost_source": "topai.tools/submit",
+      "rules": ["AI tools only; editorial review."], "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "aitoolnet", "name": "Aitoolnet", "kind": "ai-directory", "audience": "AI tool seekers",
+      "site": "https://www.aitoolnet.com", "submit_url": "https://www.aitoolnet.com/submit",
+      "cost": "observed: $9.9 one-time (no queue, listed within 24 h); $49.9 tier", "cost_source": "aitoolnet.com/submit",
+      "rules": ["AI tools only; no newsletters or directories.", "Search the site first so you don't submit a duplicate."], "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "launching-next", "name": "Launching Next", "kind": "launch", "audience": "startup readers",
+      "site": "https://www.launchingnext.com", "submit_url": "https://www.launchingnext.com/submit/",
+      "cost": "observed: free; optional $99 upgrade to be considered within 1 business day", "cost_source": "launchingnext.com/submit/",
+      "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "tinylaunch", "name": "TinyLaunch", "kind": "launch", "audience": "makers",
+      "site": "https://www.tinylaunch.com", "submit_url": "https://www.tinylaunch.com/pricing",
+      "cost": "observed: Standard launch free (queue; badge and backlink for top 3); Premium $39 per launch (skip the queue, guaranteed backlink)", "cost_source": "tinylaunch.com/pricing",
+      "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "microlaunch", "name": "MicroLaunch", "kind": "launch", "audience": "makers",
+      "site": "https://microlaunch.net", "submit_url": "https://microlaunch.net/",
+      "cost": "free launch; premium option offered (price not captured)", "cost_source": "microlaunch.net home page ('New Launch', 'Go Premium')",
+      "backlink_required": false, "automatable": false, "verify": "Read the premium price in the launch form."
+    },
+    {
+      "id": "devhunt", "name": "DevHunt", "kind": "launch", "audience": "developers (dev tools)",
+      "site": "https://devhunt.org", "submit_url": "https://devhunt.org/",
+      "cost": "free weekly launches; paid promotion offered", "cost_source": "devhunt.org home page ('Submit', weekly launches)",
+      "rules": ["Developer tools only."], "backlink_required": false, "automatable": false, "verify": "Check queue length in the submit form."
+    },
+    {
+      "id": "peerlist", "name": "Peerlist Launchpad", "kind": "launch", "audience": "developers and designers",
+      "site": "https://peerlist.io", "submit_url": "https://peerlist.io/launchpad",
+      "cost": "needs a Peerlist profile; launches run in weekly cohorts", "cost_source": "peerlist.io/launchpad",
+      "backlink_required": false, "automatable": false, "verify": "Confirm launch rules after creating a profile."
+    },
+    {
+      "id": "indie-hackers", "name": "Indie Hackers", "kind": "community", "audience": "bootstrapped founders",
+      "site": "https://www.indiehackers.com", "submit_url": "https://www.indiehackers.com/products",
+      "cost": "free (account needed)", "cost_source": "indiehackers.com/products",
+      "rules": ["Write a build-in-public post (what you made, numbers you actually have, what you learned) rather than an ad."],
+      "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "twelve-tools", "name": "Twelve Tools", "kind": "launch", "audience": "web tool browsers",
+      "site": "https://twelve.tools", "submit_url": "https://twelve.tools/",
+      "cost": "listing offered with a dofollow link (the site advertises 'DR83'); price not captured", "cost_source": "twelve.tools home page",
+      "backlink_required": false, "automatable": false, "verify": "Open 'Submit your Tool' and read the price."
+    },
+    {
+      "id": "launchigniter", "name": "LaunchIgniter", "kind": "launch", "audience": "makers",
+      "site": "https://launchigniter.com", "submit_url": "https://launchigniter.com/",
+      "cost": "launch listing with a backlink (the site advertises 'DR 75'); price not captured", "cost_source": "launchigniter.com home page",
+      "backlink_required": false, "automatable": false, "verify": "Open 'Submit Your Product' and read the terms."
+    },
+    {
+      "id": "insidr", "name": "Insidr.ai", "kind": "ai-directory", "audience": "AI tool seekers",
+      "site": "https://www.insidr.ai", "submit_url": "https://www.insidr.ai/submit-tools/",
+      "cost": "submission form; added if approved (no price shown)", "cost_source": "insidr.ai/submit-tools/",
+      "rules": ["AI tools only."], "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "openalternative", "name": "OpenAlternative", "kind": "saas-directory", "audience": "open-source users",
+      "site": "https://openalternative.co", "submit_url": "https://openalternative.co/submit",
+      "cost": "login required to submit", "cost_source": "openalternative.co/submit",
+      "rules": ["Open-source alternatives to proprietary software only: skip if your product is closed source."],
+      "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "alternativeto", "name": "AlternativeTo", "kind": "saas-directory", "audience": "software buyers comparing alternatives",
+      "site": "https://alternativeto.net", "submit_url": "https://alternativeto.net/",
+      "cost": "free (account needed)", "cost_source": "alternativeto.net (user-submitted listings)",
+      "backlink_required": false, "automatable": false,
+      "verify": "The add-app path could not be confirmed on the check date; sign in and use the site's add/suggest application link."
+    },
+    {
+      "id": "claude-marketplaces", "name": "Claude Marketplaces", "kind": "agent-skills", "audience": "Claude Code users",
+      "site": "https://claudemarketplaces.com", "submit_url": "https://claudemarketplaces.com/submit",
+      "cost": "observed: free; optional $4 priority review (24 h or less)", "cost_source": "claudemarketplaces.com/submit",
+      "rules": ["Takes a skill repo, an MCP server or a plugin marketplace repo; sign in with GitHub.", "Ranked by installs, refreshed from GitHub daily."],
+      "backlink_required": false, "automatable": false, "only_if": "you ship Agent Skills, Claude plugins or MCP servers"
+    },
+    {
+      "id": "awesome-claude-skills-travisvn", "name": "awesome-claude-skills (travisvn)", "kind": "agent-skills", "audience": "Claude Code users",
+      "site": "https://github.com/travisvn/awesome-claude-skills", "submit_url": "https://github.com/travisvn/awesome-claude-skills",
+      "cost": "free (pull request)", "cost_source": "GitHub repo",
+      "rules": ["Read the repo's CONTRIBUTING rules first; one PR, one line, alphabetical where required."],
+      "backlink_required": false, "automatable": "PR only after the user approves the exact diff", "only_if": "you ship Agent Skills"
+    },
+    {
+      "id": "reddit-sideproject", "name": "Reddit r/SideProject", "kind": "community", "audience": "makers",
+      "site": "https://www.reddit.com/r/SideProject/", "submit_url": "https://www.reddit.com/r/SideProject/submit",
+      "cost": "free (account needed)", "cost_source": "reddit.com/r/SideProject",
+      "rules": ["Read the subreddit rules in the sidebar before posting; they change.", "Post a story (what, why, what you learned), answer every comment."],
+      "backlink_required": false, "automatable": false
+    },
+    {
+      "id": "v2ex-create", "name": "V2EX 分享创造", "kind": "community", "audience": "Chinese developers",
+      "site": "https://www.v2ex.com", "submit_url": "https://www.v2ex.com/go/create",
+      "cost": "free (account needed)", "cost_source": "v2ex.com node 'create'",
+      "rules": ["Post in the 分享创造 (create) node, in Chinese, as the maker.", "No repeated posts; reply to comments."],
+      "backlink_required": false, "automatable": false, "verify": "The site blocks headless browsers; read the node rules by hand."
+    },
+    {
+      "id": "sideprojectors", "name": "SideProjectors", "kind": "marketplace", "audience": "buyers of side projects",
+      "site": "https://www.sideprojectors.com", "submit_url": "https://www.sideprojectors.com/",
+      "cost": "free listing (account needed)", "cost_source": "sideprojectors.com",
+      "rules": ["A marketplace to showcase or sell side projects: list only if you are open to offers or want showcase traffic."],
+      "backlink_required": false, "automatable": false
+    }
+  ]
+}
